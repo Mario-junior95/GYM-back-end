@@ -26,3 +26,12 @@ Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 
 Route::resource('/user' , 'UserController');
+
+/**Admin section */
+Route::post('/admin-login', 'AdminAuthController@login');
+Route::get('/admin-login' , 'AdminAuthController@login' );
+Route::post('/admin-register', 'AdminAuthController@register');
+Route::post('/logout', 'UserController@logout');
+
+Route::resource('/admin' , 'AdminController');
+
