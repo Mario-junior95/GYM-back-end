@@ -6,6 +6,10 @@ use App\Admin;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\AdminRequest;
+
+use App\Http\Requests\AdminLoginRequest;
+
 class AdminAuthController extends Controller
 {
 
@@ -18,7 +22,7 @@ class AdminAuthController extends Controller
 
 
   
-    public function register(Request $request)
+    public function register(AdminRequest $request)
     {
         $admin = $request->all();
         Admin::create($admin);
@@ -32,7 +36,7 @@ class AdminAuthController extends Controller
      *
      * @return \Illuminate\Http\AdminLoginRequest
      */
-    public function login(Request $request)
+    public function login(AdminLoginRequest $request)
     {
         $credentials = request(['username', 'password']);
 

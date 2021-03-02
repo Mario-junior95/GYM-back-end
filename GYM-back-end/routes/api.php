@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::resource('/admin' , 'AdminController');
 });
 
 Route::post('/register', 'AuthController@register');
@@ -33,5 +34,4 @@ Route::get('/admin-login' , 'AdminAuthController@login' );
 Route::post('/admin-register', 'AdminAuthController@register');
 Route::post('/logout', 'UserController@logout');
 
-Route::resource('/admin' , 'AdminController');
 

@@ -40,6 +40,13 @@ class AuthController extends Controller
          return response()->json('Successfully added');
     }
 
+
+    /**
+     * Login to an existing resource in storage.
+     *
+     * @return \Illuminate\Http\LoginUserRequest 
+     */
+
     public function login(LoginUserRequest $request)
     {
         $credentials = request(['email', 'password']);
