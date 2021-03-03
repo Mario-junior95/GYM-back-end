@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::resource('/admin' , 'AdminController');
+    Route::match(['post' , 'put'] , '/updatePassword/{id}' , 'AdminAuthController@updatePassword');
 });
 
 Route::post('/register', 'AuthController@register');

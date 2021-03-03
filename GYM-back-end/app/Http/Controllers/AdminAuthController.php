@@ -10,6 +10,8 @@ use App\Http\Requests\AdminRequest;
 
 use App\Http\Requests\AdminLoginRequest;
 
+use App\Http\Requests\ChangePasswordRequest;
+
 class AdminAuthController extends Controller
 {
 
@@ -46,6 +48,25 @@ class AdminAuthController extends Controller
            return $this->respondWithToken($token);
         }
     }
+
+
+    /**
+     * Update Password for each Admin 
+     *
+     * @param  int  $id
+     * @param  \Illuminate\Http\ChangePasswordRequest $request
+     * @return \Illuminate\Http\Response
+    */
+
+    public function updatePassword(ChangePasswordRequest $request , $id){
+        $data = $request->all();
+        $adminsUpdatePass = Admin::where('id' , $id)->first();
+        $adminsUpdatePass->password = $data['password'];
+        $adminsUpdatePass->update($data);
+   
+        return response()->json('Password successfully updated');
+    }
+
 
     /**
      * Display a listing of the resource.

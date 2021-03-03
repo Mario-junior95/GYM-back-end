@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\AdminRequest;
 
+use App\Http\Requests\UpdateAdminRequest;
+
 use App\Admin;
+
 
 class AdminController extends Controller
 {
@@ -54,11 +57,11 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateAdminRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAdminRequest $request, $id)
     {
         $data = $request->all();
         $admin = Admin::where('id', $id )->first();
