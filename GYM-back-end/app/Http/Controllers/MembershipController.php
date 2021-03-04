@@ -4,44 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
+use App\Membership;
 
-use App\Http\Requests\UpdateUserRequest;
-
-class UserController extends Controller
+class MembershipController extends Controller
 {
+  
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $user = User::with('membership')->get();
-        if($user){
+        $membership = Membership::with('user')->get();
+        if($membership){
             return response()->json([
-                'user' => $user
+                'membership' => $membership
             ],200);
         }
         return response()->json([
             'message' => 'couldn\'t fetch data'
         ],401);
     }
+    
 
-
-    public function show(Request $request , $id){
-        $user = User::where('id', $id )->first();
-        if($user){
-            return response()->json([
-                'user' => $user
-            ],200);
-        }
-        return response()->json([
-            'message' => 'couldn\'t fetch data'
-        ],401);
-    }
-
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -50,12 +38,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data =  $request->all();
-        $user = new User;
-        $user->fill($data);
-        $user->save();
-        if($user){
+        $membership  = new Membership ;
+        $membership ->fill($data);
+        $membership ->save();
+        if($membership ){
             return response()->json([
-                'user' => $user
+                'membership ' => $membership 
             ],200);
         }
         return response()->json([
@@ -64,30 +52,39 @@ class UserController extends Controller
 
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * Display the specified resource.
      *
-     * @param  \Illuminate\Http\UpdateUserRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function show($id)
+    {
+        //
+    }
+
+       /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         $data = $request->all();
-        $user = User::where('id', $id )->first();
-        unset($data['password']);
-        $user->update($data);
-        $user->save();
-        if($user){
+        $membership  = Membership ::where('id', $id )->first();
+        $membership ->update($data);
+        $membership ->save();
+        if($membership ){
             return response()->json([
-                'user' => $user
+                'membership ' => $membership 
             ],200);
         }
         return response()->json([
             'message' => 'couldn\'t update data'
         ],401); 
-    }
+    } 
 
     /**
      * Remove the specified resource from storage.
@@ -97,8 +94,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::where('id' , $id)->delete();
-        if($user){
+        $membership = Membership::where('id' , $id)->delete();
+        if($membership){
             return response()->json([
                 'message' => 'Success'
             ]);

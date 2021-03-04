@@ -21,13 +21,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::resource('/admin' , 'AdminController');
     Route::match(['post' , 'put'] , '/updatePassword/{id}' , 'AdminAuthController@updatePassword');
+    Route::get('/user/{id}' , 'UserController@show');
 });
+
+//Ma t7ota bel middleware:::
+Route::resource('/user' , 'UserController');
+
+
 
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 
-Route::resource('/user' , 'UserController');
+/**   New  */
+Route::resource('/membership' , 'MembershipController');
+
 
 /**Admin section */
 Route::post('/admin-login', 'AdminAuthController@login');

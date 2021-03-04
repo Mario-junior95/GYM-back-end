@@ -74,4 +74,8 @@ class User extends Authenticatable implements JWTSubject
             $this->attributes['password'] = bcrypt($password);
         }
     }    
+
+    public function membership(){
+        return $this->hasOne(Membership::class , 'id' , 'membership_id');
+    }
   }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateMembershipTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations. 
      *
      * @return void
      */
@@ -17,7 +17,7 @@ class CreateMembershipTable extends Migration
             $table->id();
             $table->string('name');
             $table->BigInteger('amount');
-            $table->date('date');
+            $table->string('date');
             $table->timestamps();
         });
     }
