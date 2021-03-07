@@ -28,13 +28,17 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 Route::resource('/user' , 'UserController');
 
 
-
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 
 /**   New  */
 Route::resource('/membership' , 'MembershipController');
+Route::resource('/payement' , 'PayementController');
+Route::resource('/workout' , 'WorkoutController');
+Route::get('/workout/{id}' , 'WorkoutController@show');
+Route::resource('/instructor' , 'InstructorController');
+Route::resource('/workoutplan' , 'WorkOutPlanController');
 
 
 /**Admin section */
