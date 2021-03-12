@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Membership;
 
+use App\Http\Requests\MembershipTypeRequest;
+
 class MembershipController extends Controller
 {
   
@@ -17,7 +19,8 @@ class MembershipController extends Controller
 
     public function index()
     {
-        $membership = Membership::with('user')->get();
+        // $membership = Membership::with('user')->get();
+        $membership = Membership::all();
         if($membership){
             return response()->json([
                 'membership' => $membership
@@ -60,17 +63,25 @@ class MembershipController extends Controller
      */
     public function show($id)
     {
-        //
+        $membership = Membership::where('id', $id )->first();
+        if($membership){
+            return response()->json([
+                'membership' => $membership
+            ],200);
+        }
+        return response()->json([
+            'message' => 'couldn\'t fetch data'
+        ],401);
     }
 
        /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\MembershipTypeRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MembershipTypeRequest $request, $id)
     {
         $data = $request->all();
         $membership  = Membership ::where('id', $id )->first();

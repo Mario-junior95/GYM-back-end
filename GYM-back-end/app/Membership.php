@@ -9,7 +9,7 @@ class Membership extends Model
     protected $table = 'membership';
 
     protected $fillable = [
-        'name' , 'amount' , 'date'
+        'name' , 'amount' , 'date' , 'benefits'
     ];
 
     public function user(){

@@ -18,8 +18,10 @@ class User extends Authenticatable implements JWTSubject
    * @var array
    */
   protected $fillable = [
-      'firstname' , 'lastname' , 'email' , 'phone' , 'address' , 'date' , 'gender' , 'password' , 'membership_id'
+      'firstname' , 'lastname' , 'email' , 'phone' , 'address' , 'date' , 'gender' , 'password' , 'membership_id'  ,'instructor_id' , 'time_id'
   ];
+
+  //7oton bi fillable in case bedak terja3 testa3ml el many to many 'instructor_id' , 'time_id'
 
   /**
    * The attributes that should be hidden for arrays.
@@ -76,7 +78,7 @@ class User extends Authenticatable implements JWTSubject
     }    
 
     public function membership(){
-        return $this->hasOne(Membership::class , 'id' , 'membership_id');
+        return $this->hasMany(Membership::class , 'id' , 'membership_id');
     }
 
     public function payement(){
@@ -86,4 +88,16 @@ class User extends Authenticatable implements JWTSubject
     public function WorkPlan(){
         return $this->hasOne(WorkPlan::class);
     }
+
+   
+    public function userInstructor(){
+        return $this->belongsToMany(Instructor::class ,'user_instructor_time' , 'user_id' , 'instructor_id');
+    }
+
+    public function userTime(){
+        return $this->belongsToMany(Time::class ,'user_instructor_time' , 'user_id' , 'time_id');
+    }
+
+
+
   }

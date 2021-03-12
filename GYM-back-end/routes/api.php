@@ -22,6 +22,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::resource('/admin' , 'AdminController');
     Route::match(['post' , 'put'] , '/updatePassword/{id}' , 'AdminAuthController@updatePassword');
     Route::get('/user/{id}' , 'UserController@show');
+    Route::get('/admin/{id}' , 'AdminController@show');
 });
 
 //Ma t7ota bel middleware:::
@@ -34,10 +35,12 @@ Route::post('/logout', 'AuthController@logout');
 
 /**   New  */
 Route::resource('/membership' , 'MembershipController');
+Route::get('/membership/{id}' , 'MembershipController@show');
 Route::resource('/payement' , 'PayementController');
 Route::resource('/workout' , 'WorkoutController');
 Route::get('/workout/{id}' , 'WorkoutController@show');
 Route::resource('/instructor' , 'InstructorController');
+// Route::resource('/instructor/{id}' , 'InstructorController@show');
 Route::resource('/workoutplan' , 'WorkOutPlanController');
 
 
@@ -46,5 +49,11 @@ Route::post('/admin-login', 'AdminAuthController@login');
 Route::get('/admin-login' , 'AdminAuthController@login' );
 Route::post('/admin-register', 'AdminAuthController@register');
 Route::post('/logout', 'UserController@logout');
+
+/**   Newwww */
+
+Route::resource('/time' , 'TimeController');
+Route::resource('/userIntsructorTime' , 'UserInstructorTimeController');
+
 
 

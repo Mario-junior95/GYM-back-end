@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::with('membership')->get();
+        $user = User::with('membership' , 'userInstructor' , 'userTime')->get();
         if($user){
             return response()->json([
                 'user' => $user
@@ -30,7 +30,7 @@ class UserController extends Controller
 
 
     public function show(Request $request , $id){
-        $user = User::where('id', $id )->first();
+        $user = User::with('membership')->get()->where('id', $id )->first();
         if($user){
             return response()->json([
                 'user' => $user

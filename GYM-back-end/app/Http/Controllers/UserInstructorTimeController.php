@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Instructor;
+use App\User_Instructor_Time;
 
-use App\Helpers\Helpers;
+use App\Http\Requests\UserInstructorTimeRequest;
 
-use App\Http\Requests\AddInstructorRequest;
-
-use App\Http\Requests\EditInstructorRequest;
-
-class InstructorController extends Controller
+class UserInstructorTimeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +17,10 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        $instructor = Instructor::all();
-        if($instructor){
+        $userInstTime = User_Instructor_Time::with('user' , 'instructor' , 'time') -> get();
+        if($userInstTime){
             return response()->json([
-                'instructor' => $instructor
+                'userInstTime' => $userInstTime
             ],200);
         }
         return response()->json([
@@ -45,23 +41,18 @@ class InstructorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\AddInstructorRequest  $request
+     * @param  \Illuminate\Http\UserInstructorTimeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddInstructorRequest $request)
+    public function store(Request $request)
     {
         $data =  $request->all();
-        $instructor = new Instructor;
-        $instructor->fill($data);
-    //     if($data['image'] === "null"){
-    //         unset($data['image']);   
-    //    }else{
-           $instructor->image = custom_image($request);
-    //    }
-        $instructor->save();
-        if($instructor){
+        $userInstTime = new User_Instructor_Time;
+        $userInstTime->fill($data);
+        $userInstTime->save();
+        if($userInstTime){
             return response()->json([
-                'instructor' => $instructor
+                'userInstTime' => $userInstTime
             ],200);
         }
         return response()->json([
@@ -77,15 +68,7 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        $instructor = Instructor::where('id', $id )->first();
-        if($instructor){
-            return response()->json([
-                'instructor' => $instructor
-            ],200);
-        }
-        return response()->json([
-            'message' => 'couldn\'t fetch data'
-        ],401);
+        //
     }
 
     /**
@@ -102,26 +85,19 @@ class InstructorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\EditInstructorRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditInstructorRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
-        $instructor = Instructor::where('id', $id )->first();
-    
-        if($data['image'] === "null"){
-            unset($data['image']);
-           $instructor->update($data);
-       }else{
-           $instructor->update($data);
-           $instructor->image = custom_image($request);
-       }
-        $instructor->save();
-        if($instructor){
+        $userInstTime = User_Instructor_Time::where('id', $id )->first();
+        $userInstTime->update($data);
+        $userInstTime->save();
+        if($userInstTime){
             return response()->json([
-                'instructor' => $instructor
+                'userInstTime' => $userInstTime
             ],200);
         }
         return response()->json([
@@ -137,8 +113,8 @@ class InstructorController extends Controller
      */
     public function destroy($id)
     {
-        $instructor = Instructor::where('id' , $id)->delete();
-        if($instructor){
+        $userInstTime = User_Instructor_Time::where('id' , $id)->delete();
+        if($userInstTime){
             return response()->json([
                 'message' => 'Success'
             ]);

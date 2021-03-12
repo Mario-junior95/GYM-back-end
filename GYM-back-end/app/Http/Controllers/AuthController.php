@@ -37,7 +37,13 @@ class AuthController extends Controller
     {
          $user = $request->all();
          User::create($user);
-         return response()->json('Successfully added');
+        //  return response()->json('Successfully added');
+
+         if (! $token = auth()->attempt($user)) {
+             return response()->json(['error' => 'Unauthorized'], 401);
+         }
+ 
+         return $this->respondWithToken($token);
     }
 
 

@@ -54,6 +54,26 @@ class AdminController extends Controller
     }
 
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $admin = Admin::where('id', $id )->first();
+        if($admin){
+            return response()->json([
+                'admin' => $admin
+            ],200);
+        }
+        return response()->json([
+            'message' => 'couldn\'t fetch data'
+        ],401);
+    }
+
     /**
      * Update the specified resource in storage.
      *

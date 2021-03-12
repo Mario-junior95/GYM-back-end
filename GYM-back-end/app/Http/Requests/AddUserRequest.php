@@ -55,7 +55,7 @@ class AddUserRequest extends FormRequest
 
             'phone.required' => 'Phone is required!',
             'phone.numeric' => 'Phone must be a number!',
-            'phone.unique' => 'hone number must be unique!',
+            'phone.unique' => 'Phone number must be unique!',
 
             'email.required' => 'Email is required!',
             'email.email' => 'Email must be of type email!',

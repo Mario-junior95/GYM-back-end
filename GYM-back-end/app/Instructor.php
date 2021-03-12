@@ -9,7 +9,7 @@ class Instructor extends Model
     protected $table = 'instructor';
 
     protected $fillable = [
-        'name', 'email' , 'phone' , 'address' , 'image'
+        'name', 'email' , 'phone' , 'address' , 'image' , 'description'
     ];
 
     public function WorkoutPlan(){

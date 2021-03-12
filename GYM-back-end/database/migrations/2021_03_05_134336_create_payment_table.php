@@ -16,7 +16,7 @@ class CreatePaymentTable extends Migration
         Schema::create('payment', function (Blueprint $table) {
             $table->id();
             $table->string('date');
-            $table->bigInteger('card_number');
+            $table->bigInteger('card_number')->unique();
             $table->string('amount');
             $table->UnsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');

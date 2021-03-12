@@ -4,15 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Instructor;
+use App\Time;
 
-use App\Helpers\Helpers;
-
-use App\Http\Requests\AddInstructorRequest;
-
-use App\Http\Requests\EditInstructorRequest;
-
-class InstructorController extends Controller
+class TimeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +15,10 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        $instructor = Instructor::all();
-        if($instructor){
+        $time = Time::all();
+        if($time){
             return response()->json([
-                'instructor' => $instructor
+                'time' => $time
             ],200);
         }
         return response()->json([
@@ -45,23 +39,18 @@ class InstructorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\AddInstructorRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddInstructorRequest $request)
+    public function store(Request $request)
     {
         $data =  $request->all();
-        $instructor = new Instructor;
-        $instructor->fill($data);
-    //     if($data['image'] === "null"){
-    //         unset($data['image']);   
-    //    }else{
-           $instructor->image = custom_image($request);
-    //    }
-        $instructor->save();
-        if($instructor){
+        $time = new Time;
+        $time->fill($data);
+        $time->save();
+        if($time){
             return response()->json([
-                'instructor' => $instructor
+                'time' => $time
             ],200);
         }
         return response()->json([
@@ -77,15 +66,7 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        $instructor = Instructor::where('id', $id )->first();
-        if($instructor){
-            return response()->json([
-                'instructor' => $instructor
-            ],200);
-        }
-        return response()->json([
-            'message' => 'couldn\'t fetch data'
-        ],401);
+        //
     }
 
     /**
@@ -102,26 +83,19 @@ class InstructorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\EditInstructorRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditInstructorRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
-        $instructor = Instructor::where('id', $id )->first();
-    
-        if($data['image'] === "null"){
-            unset($data['image']);
-           $instructor->update($data);
-       }else{
-           $instructor->update($data);
-           $instructor->image = custom_image($request);
-       }
-        $instructor->save();
-        if($instructor){
+        $time = Time::where('id', $id )->first();
+        $time->update($data);
+        $time->save();
+        if($time){
             return response()->json([
-                'instructor' => $instructor
+                'time' => $time
             ],200);
         }
         return response()->json([
@@ -137,8 +111,8 @@ class InstructorController extends Controller
      */
     public function destroy($id)
     {
-        $instructor = Instructor::where('id' , $id)->delete();
-        if($instructor){
+        $time = Time::where('id' , $id)->delete();
+        if($time){
             return response()->json([
                 'message' => 'Success'
             ]);
