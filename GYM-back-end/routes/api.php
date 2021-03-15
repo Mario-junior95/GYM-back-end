@@ -56,4 +56,12 @@ Route::resource('/time' , 'TimeController');
 Route::resource('/userIntsructorTime' , 'UserInstructorTimeController');
 
 
+Route::resource('/shop' , 'ShopController');
+// Route::resource('/type' , 'TypeController');
+
+
+Route::resource('/home' , 'HomeController');
+Route::resource('/faq' , 'FaqController');
+Route::resource('/contactus' , 'ContactUsController');
+
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBenefitsToMembership extends Migration
+class CreateContactusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddBenefitsToMembership extends Migration
      */
     public function up()
     {
-        Schema::table('membership', function (Blueprint $table) {
-            $table->text('benefits');
+        Schema::create('contactus', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->text('message');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddBenefitsToMembership extends Migration
      */
     public function down()
     {
-        Schema::table('membership', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('contactus');
     }
 }

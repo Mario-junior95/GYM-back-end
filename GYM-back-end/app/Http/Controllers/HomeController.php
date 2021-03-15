@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Time;
+use App\Home;
 
-use App\Http\Requests\TimeRequest;
+use App\Http\Requests\HomeRequest;
 
-class TimeController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class TimeController extends Controller
      */
     public function index()
     {
-        $time = Time::all();
-        if($time){
+        $home = Home::all();
+        if($home){
             return response()->json([
-                'time' => $time
+                'home' => $home
             ],200);
         }
         return response()->json([
@@ -41,18 +41,21 @@ class TimeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\TimeRequest $request
+     * @param  \Illuminate\Http\HomeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TimeRequest $request)
+    public function store(HomeRequest $request)
     {
         $data =  $request->all();
-        $time = new Time;
-        $time->fill($data);
-        $time->save();
-        if($time){
+        $home = new Home;
+        $home->fill($data);
+        
+        $home->image = custom_image($request);
+  
+        $home->save();
+        if($home){
             return response()->json([
-                'time' => $time
+                'home' => $home
             ],200);
         }
         return response()->json([
@@ -85,19 +88,26 @@ class TimeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\TimeRequest  $request
+     * @param  \Illuminate\Http\HomeRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TimeRequest $request, $id)
+    public function update(HomeRequest $request, $id)
     {
         $data = $request->all();
-        $time = Time::where('id', $id )->first();
-        $time->update($data);
-        $time->save();
-        if($time){
+        $home = Home::where('id', $id )->first();
+    
+        if($data['image'] === "null"){
+            unset($data['image']);
+           $home->update($data);
+       }else{
+           $home->update($data);
+           $home->image = custom_image($request);
+       }
+        $home->save();
+        if($home){
             return response()->json([
-                'time' => $time
+                'home' => $home
             ],200);
         }
         return response()->json([
@@ -113,8 +123,8 @@ class TimeController extends Controller
      */
     public function destroy($id)
     {
-        $time = Time::where('id' , $id)->delete();
-        if($time){
+        $home = Home::where('id' , $id)->delete();
+        if($home){
             return response()->json([
                 'message' => 'Success'
             ]);

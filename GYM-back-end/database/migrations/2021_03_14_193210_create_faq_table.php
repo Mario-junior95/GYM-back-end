@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageToWorkout extends Migration
+class CreateFaqTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddImageToWorkout extends Migration
      */
     public function up()
     {
-        Schema::table('workout', function (Blueprint $table) {
-            $table->string('image');
+        Schema::create('faq', function (Blueprint $table) {
+            $table->id();
+            $table->text('question');
+            $table->text('answer');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddImageToWorkout extends Migration
      */
     public function down()
     {
-        Schema::table('workout', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('faq');
     }
 }

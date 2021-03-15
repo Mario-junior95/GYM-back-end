@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
+use App\Type;
 
-use App\Http\Requests\UpdateUserRequest;
-
-
-class UserController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::with('membership' , 'userInstructor' , 'userTime')->get();
-        if($user){
+        $type = Type::all();
+        if($type){
             return response()->json([
-                'user' => $user
+                'type' => $type
             ],200);
         }
         return response()->json([
@@ -29,19 +26,15 @@ class UserController extends Controller
         ],401);
     }
 
-
-    public function show(Request $request , $id){
-        $user = User::with('membership' , 'userInstructor' , 'userTime' , 'dates')->get()->where('id', $id )->first();
-        if($user){
-            return response()->json([
-                'user' => $user
-            ],200);
-        }
-        return response()->json([
-            'message' => 'couldn\'t fetch data'
-        ],401);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
-    
 
     /**
      * Store a newly created resource in storage.
@@ -52,38 +45,57 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data =  $request->all();
-        $user = new User;
-        $user->fill($data);
-        $user->save();
-        if($user){
+        $type = new Type;
+        $type->fill($data);
+        $type->save();
+        if($type){
             return response()->json([
-                'user' => $user
+                'type' => $type
             ],200);
         }
         return response()->json([
             'message' => 'couldn\'t store data'
         ],401);
-
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateUserRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
-        $user = User::where('id', $id )->first();
-        unset($data['password']);
-        $user->update($data);
-        $user->save();
-        if($user){
+        $type = Type::where('id', $id )->first();
+        $type->update($data);
+        $type->save();
+        if($type){
             return response()->json([
-                'user' => $user
+                'type' => $type
             ],200);
         }
         return response()->json([
@@ -99,8 +111,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::where('id' , $id)->delete();
-        if($user){
+        $type = Type::where('id' , $id)->delete();
+        if($type){
             return response()->json([
                 'message' => 'Success'
             ]);

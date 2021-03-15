@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
+use App\Faq;
 
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\FaqRequest;
 
-
-class UserController extends Controller
+class FaqController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::with('membership' , 'userInstructor' , 'userTime')->get();
-        if($user){
+        $faq = Faq::all();
+        if($faq){
             return response()->json([
-                'user' => $user
+                'faq' => $faq
             ],200);
         }
         return response()->json([
@@ -29,61 +28,76 @@ class UserController extends Controller
         ],401);
     }
 
-
-    public function show(Request $request , $id){
-        $user = User::with('membership' , 'userInstructor' , 'userTime' , 'dates')->get()->where('id', $id )->first();
-        if($user){
-            return response()->json([
-                'user' => $user
-            ],200);
-        }
-        return response()->json([
-            'message' => 'couldn\'t fetch data'
-        ],401);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
-    
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\FaqRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FaqRequest $request)
     {
         $data =  $request->all();
-        $user = new User;
-        $user->fill($data);
-        $user->save();
-        if($user){
+        $faq  = new Faq ;
+        $faq ->fill($data);
+        $faq ->save();
+        if($faq ){
             return response()->json([
-                'user' => $user
+                'faq ' => $faq 
             ],200);
         }
         return response()->json([
             'message' => 'couldn\'t store data'
         ],401);
-
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateUserRequest  $request
+     * @param  \Illuminate\Http\FaqRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(FaqRequest $request, $id)
     {
         $data = $request->all();
-        $user = User::where('id', $id )->first();
-        unset($data['password']);
-        $user->update($data);
-        $user->save();
-        if($user){
+        $faq  = Faq ::where('id', $id )->first();
+        $faq ->update($data);
+        $faq ->save();
+        if($faq ){
             return response()->json([
-                'user' => $user
+                'faq ' => $faq 
             ],200);
         }
         return response()->json([
@@ -99,8 +113,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::where('id' , $id)->delete();
-        if($user){
+        $faq = Faq::where('id' , $id)->delete();
+        if($faq){
             return response()->json([
                 'message' => 'Success'
             ]);

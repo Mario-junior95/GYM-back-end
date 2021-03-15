@@ -4,21 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembershipTable extends Migration
+class CreateTypeTable extends Migration
 {
     /**
-     * Run the migrations. 
+     * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('membership', function (Blueprint $table) {
+        Schema::create('type', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->BigInteger('amount');
-            $table->string('date');
-            $table->text('benefits');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateMembershipTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('membership');
+        Schema::dropIfExists('type');
     }
 }

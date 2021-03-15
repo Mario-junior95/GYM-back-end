@@ -29,7 +29,8 @@ class EditInstructorRequest extends FormRequest
             'phone'  => 'required|numeric|bail',
             'image' => 'required' ,
             'address' => 'required',
-            'description' => 'required|max:623'
+            'description' => 'required|max:623',
+            'price' =>'required'
         ];
     }
 
@@ -60,7 +61,9 @@ class EditInstructorRequest extends FormRequest
             'address.required' => 'Address is required!',
 
             'description.required' => 'Description is required!',
-            'description.max' => 'Description Field support only 623 words'
+            'description.max' => 'Description Field support only 623 words',
+
+            'price.required' => 'Price Field is required!'
         ];
     }
 }

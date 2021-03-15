@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Time;
+use App\Shop;
+use App\Http\Requests\ShopRequest;
 
-use App\Http\Requests\TimeRequest;
-
-class TimeController extends Controller
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +16,10 @@ class TimeController extends Controller
      */
     public function index()
     {
-        $time = Time::all();
-        if($time){
+        $shop = Shop::all();
+        if($shop){
             return response()->json([
-                'time' => $time
+                'shop' => $shop
             ],200);
         }
         return response()->json([
@@ -41,18 +40,21 @@ class TimeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\TimeRequest $request
+     * @param  \Illuminate\Http\ShopRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TimeRequest $request)
+    public function store(ShopRequest $request)
     {
         $data =  $request->all();
-        $time = new Time;
-        $time->fill($data);
-        $time->save();
-        if($time){
+        $shop = new Shop;
+        $shop->fill($data);
+        
+        $shop->image = custom_image($request);
+  
+        $shop->save();
+        if($shop){
             return response()->json([
-                'time' => $time
+                'shop' => $shop
             ],200);
         }
         return response()->json([
@@ -85,19 +87,26 @@ class TimeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\TimeRequest  $request
+     * @param  \Illuminate\Http\ $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TimeRequest $request, $id)
+    public function update(ShopRequest $request, $id)
     {
         $data = $request->all();
-        $time = Time::where('id', $id )->first();
-        $time->update($data);
-        $time->save();
-        if($time){
+        $shop = Shop::where('id', $id )->first();
+    
+        if($data['image'] === "null"){
+            unset($data['image']);
+           $shop->update($data);
+       }else{
+           $shop->update($data);
+           $shop->image = custom_image($request);
+       }
+        $shop->save();
+        if($shop){
             return response()->json([
-                'time' => $time
+                'shop' => $shop
             ],200);
         }
         return response()->json([
@@ -113,8 +122,8 @@ class TimeController extends Controller
      */
     public function destroy($id)
     {
-        $time = Time::where('id' , $id)->delete();
-        if($time){
+        $shop = Shop::where('id' , $id)->delete();
+        if($shop){
             return response()->json([
                 'message' => 'Success'
             ]);

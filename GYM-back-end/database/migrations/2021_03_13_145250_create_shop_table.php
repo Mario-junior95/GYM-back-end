@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstructorTable extends Migration
+class CreateShopTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateInstructorTable extends Migration
      */
     public function up()
     {
-        Schema::create('instructor', function (Blueprint $table) {
+        Schema::create('shop', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->bigInteger('phone')->unique();
-            $table->string('address');
             $table->string('image');
-            $table->text('description');
-            $table->integer('price');
+            $table->string('amount');
+            $table->string('type');
+            // $table->UnsignedBigInteger('type_id')->nullable();
+            // $table->foreign('type_id')->references('id')->on('type')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateInstructorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('instructor');
+        Schema::dropIfExists('shop');
     }
 }

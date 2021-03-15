@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDescriptionToInstructor extends Migration
+class CreateHomeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddDescriptionToInstructor extends Migration
      */
     public function up()
     {
-        Schema::table('instructor', function (Blueprint $table) {
+        Schema::create('home', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
             $table->text('description');
+            $table->string('image');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddDescriptionToInstructor extends Migration
      */
     public function down()
     {
-        Schema::table('instructor', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('home');
     }
 }
