@@ -41,7 +41,7 @@ Route::resource('/payement' , 'PayementController');
 Route::resource('/workout' , 'WorkoutController');
 Route::get('/workout/{id}' , 'WorkoutController@show');
 Route::resource('/instructor' , 'InstructorController');
-// Route::resource('/instructor/{id}' , 'InstructorController@show');
+Route::get('/instructor/{id}' , 'InstructorController@show');
 Route::resource('/workoutplan' , 'WorkOutPlanController');
 
 
@@ -56,6 +56,10 @@ Route::post('/superadmin-login', 'SuperAdminController@login');
 Route::get('/superadmin-login' , 'SuperAdminController@login' );
 Route::post('/superadmin-register', 'SuperAdminController@register');
 
+/**  Instructor Auth Controller */
+Route::post('/instructor-login', 'InstructorAuthController@login');
+Route::get('/instructor-login' , 'InstructorAuthController@login' );
+Route::post('/instructor-register', 'InstructorAuthController@register');
 
 
 

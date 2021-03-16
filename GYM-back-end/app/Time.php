@@ -11,4 +11,8 @@ class Time extends Model
     protected $fillable = [
         'start' , 'end'
     ];
+
+    public function instructor(){
+        return $this->belongsToMany(Instructor::class ,'user_instructor_time' , 'instructor_id' , 'user_id' );
+    }
 }

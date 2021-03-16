@@ -60,6 +60,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'superadmin',
         ],
+        'instructor' => [
+            'driver' => 'jwt',
+            'provider' => 'instructor',
+        ],
   
     ],
 
@@ -95,6 +99,10 @@ return [
             'driver' =>'eloquent',
             'model' => App\SuperAdmin::class,
         ],
+        'instructor' => [
+            'driver' =>'eloquent',
+            'model' => App\Instructor::class,
+        ],
     ],
 
     /*
@@ -127,6 +135,12 @@ return [
         ],
         'superadmin' => [
             'provider' => 'superadmin',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'instructor' => [
+            'provider' => 'isntructor',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

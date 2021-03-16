@@ -20,7 +20,6 @@ class User_Instructor_Time extends Model
         return $this->belongsToMany(Instructor::class , 'user_instructor_time' ,'instructor_id' ,'time_id','user_id' );
     }
 
-
     public function time(){
         return $this->belongsToMany(Time::class ,'user_instructor_time' ,'instructor_id' ,'time_id','user_id' );
     }

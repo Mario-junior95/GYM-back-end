@@ -53,11 +53,9 @@ class InstructorController extends Controller
         $data =  $request->all();
         $instructor = new Instructor;
         $instructor->fill($data);
-    //     if($data['image'] === "null"){
-    //         unset($data['image']);   
-    //    }else{
-           $instructor->image = custom_image($request);
-    //    }
+
+        $instructor->image = custom_image($request);
+   
         $instructor->save();
         if($instructor){
             return response()->json([
@@ -77,7 +75,7 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        $instructor = Instructor::where('id', $id )->first();
+        $instructor = Instructor::where('id', $id )->with('instructorUser' , 'time' , 'dates')->get();
         if($instructor){
             return response()->json([
                 'instructor' => $instructor
