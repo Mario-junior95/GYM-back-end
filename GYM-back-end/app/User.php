@@ -101,4 +101,8 @@ class User extends Authenticatable implements JWTSubject
     public function dates(){
         return $this->hasMany(User_Instructor_Time::class, 'user_id');
     }
+
+    public function shop(){
+        return $this->hasMany(Shop::class);
+    }
   }

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Home;
-
-use App\Http\Requests\HomeRequest;
+use App\WorkWithUs;
 
 use App\Helpers\Helpers;
 
-class HomeController extends Controller
+use App\Http\Requests\WorkWithUsRequest;
+
+class WorkWithUsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $home = Home::all();
-        if($home){
+        $workwithus = WorkWithUs::all();
+        if($workwithus){
             return response()->json([
-                'home' => $home
+                'workwithus' => $workwithus
             ],200);
         }
         return response()->json([
@@ -43,21 +43,21 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\HomeRequest  $request
+     * @param  \Illuminate\Http\WorkWithUsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(HomeRequest $request)
+    public function store(WorkWithUsRequest $request)
     {
         $data =  $request->all();
-        $home = new Home;
-        $home->fill($data);
+        $workwithus = new WorkWithUs;
+        $workwithus->fill($data);
         
-        $home->image = custom_image($request);
+        $workwithus->image = custom_image($request);
   
-        $home->save();
-        if($home){
+        $workwithus->save();
+        if($workwithus){
             return response()->json([
-                'home' => $home
+                'workwithus' => $workwithus
             ],200);
         }
         return response()->json([
@@ -90,26 +90,26 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\HomeRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(HomeRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
-        $home = Home::where('id', $id )->first();
+        $workwithus = WorkWithUs::where('id', $id )->first();
     
         if($data['image'] === "null"){
             unset($data['image']);
-           $home->update($data);
+           $workwithus->update($data);
        }else{
-           $home->update($data);
-           $home->image = custom_image($request);
+           $workwithus->update($data);
+           $workwithus->image = custom_image($request);
        }
-        $home->save();
-        if($home){
+        $workwithus->save();
+        if($workwithus){
             return response()->json([
-                'home' => $home
+                'workwithus' => $workwithus
             ],200);
         }
         return response()->json([
@@ -125,8 +125,8 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        $home = Home::where('id' , $id)->delete();
-        if($home){
+        $workwithus = WorkWithUs::where('id' , $id)->delete();
+        if($workwithus){
             return response()->json([
                 'message' => 'Success'
             ]);

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\ContactUs;
 
+use App\Http\Requests\ContactUsRequest;
+
 class ContactUsController extends Controller
 {
     /**
@@ -39,10 +41,10 @@ class ContactUsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ContactUsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactUsRequest $request)
     {
         $data =  $request->all();
         $contactus  = new ContactUs ;

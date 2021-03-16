@@ -9,12 +9,11 @@ class Shop extends Model
 protected $table = "shop";
 
 protected $fillable = [
-    'name' , 'image' , 'amount' , 'type'
+    'name' , 'image' , 'amount' , 'type' , 'user_id'
 ];
 
-
-// public function type(){
-//     return $this->belongsTo(Type::class);
-// }
+function user(){
+    return $this->belongsTo(User::class);
+}
 
 }

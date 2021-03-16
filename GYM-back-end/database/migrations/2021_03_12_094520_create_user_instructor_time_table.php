@@ -16,7 +16,7 @@ class CreateUserInstructorTimeTable extends Migration
         Schema::create('user_instructor_time', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('date');
-            $table->unique(['instructor_id' , 'time_id' , 'date']);
+            $table->unique(['time_id' , 'date']);
             $table->UnsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
             $table->UnsignedBigInteger('instructor_id')->nullable();

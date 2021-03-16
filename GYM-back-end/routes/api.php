@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::resource('/admin' , 'AdminController');
     Route::match(['post' , 'put'] , '/updatePassword/{id}' , 'AdminAuthController@updatePassword');
+    Route::match(['post' , 'put'] , '/updatePassword/{id}' , 'SuperAdminController@updatePassword');
     Route::get('/user/{id}' , 'UserController@show');
     Route::get('/admin/{id}' , 'AdminController@show');
 });
@@ -50,6 +51,14 @@ Route::get('/admin-login' , 'AdminAuthController@login' );
 Route::post('/admin-register', 'AdminAuthController@register');
 Route::post('/logout', 'UserController@logout');
 
+/** Super Admin Section */
+Route::post('/superadmin-login', 'SuperAdminController@login');
+Route::get('/superadmin-login' , 'SuperAdminController@login' );
+Route::post('/superadmin-register', 'SuperAdminController@register');
+
+
+
+
 /**   Newwww */
 
 Route::resource('/time' , 'TimeController');
@@ -63,5 +72,11 @@ Route::resource('/shop' , 'ShopController');
 Route::resource('/home' , 'HomeController');
 Route::resource('/faq' , 'FaqController');
 Route::resource('/contactus' , 'ContactUsController');
+
+Route::resource('/item' , 'ItemController');
+
+Route::resource('/workwithus' , 'WorkWithUsController');
+
+
 
 

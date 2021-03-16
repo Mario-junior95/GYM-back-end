@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Home;
+use App\Item;
 
-use App\Http\Requests\HomeRequest;
+use App\Http\Requests\ShopRequest;
 
 use App\Helpers\Helpers;
 
-class HomeController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $home = Home::all();
-        if($home){
+        $item = Item::all();
+        if($item){
             return response()->json([
-                'home' => $home
+                'item' => $item
             ],200);
         }
         return response()->json([
@@ -43,21 +43,21 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\HomeRequest  $request
+     * @param  \Illuminate\Http\ShopRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(HomeRequest $request)
+    public function store(ShopRequest $request)
     {
         $data =  $request->all();
-        $home = new Home;
-        $home->fill($data);
+        $item = new Item;
+        $item->fill($data);
         
-        $home->image = custom_image($request);
+        $item->image = custom_image($request);
   
-        $home->save();
-        if($home){
+        $item->save();
+        if($item){
             return response()->json([
-                'home' => $home
+                'item' => $item
             ],200);
         }
         return response()->json([
@@ -90,26 +90,26 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\HomeRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(HomeRequest $request, $id)
+    public function update(ShopRequest $request, $id)
     {
         $data = $request->all();
-        $home = Home::where('id', $id )->first();
+        $item = Item::where('id', $id )->first();
     
         if($data['image'] === "null"){
             unset($data['image']);
-           $home->update($data);
+           $item->update($data);
        }else{
-           $home->update($data);
-           $home->image = custom_image($request);
+           $item->update($data);
+           $item->image = custom_image($request);
        }
-        $home->save();
-        if($home){
+        $item->save();
+        if($item){
             return response()->json([
-                'home' => $home
+                'item' => $item
             ],200);
         }
         return response()->json([
@@ -125,8 +125,8 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        $home = Home::where('id' , $id)->delete();
-        if($home){
+        $item = Item::where('id' , $id)->delete();
+        if($item){
             return response()->json([
                 'message' => 'Success'
             ]);

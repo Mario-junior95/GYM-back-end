@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Shop;
-use App\Http\Requests\ShopRequest;
+
+use App\Helpers\Helpers;
+
 
 class ShopController extends Controller
 {
@@ -40,16 +42,21 @@ class ShopController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\ShopRequest $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShopRequest $request)
+    public function store(Request $request)
     {
         $data =  $request->all();
         $shop = new Shop;
         $shop->fill($data);
         
-        $shop->image = custom_image($request);
+       
+        if($data['image'] === "null"){
+            unset($data['image']);
+       }else{
+           $home->image = custom_image($request);
+       }
   
         $shop->save();
         if($shop){
@@ -70,7 +77,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        //
+      //
     }
 
     /**
@@ -91,7 +98,7 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ShopRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
         $shop = Shop::where('id', $id )->first();
