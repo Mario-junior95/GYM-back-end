@@ -80,7 +80,7 @@ class Instructor extends Authenticatable implements JWTSubject
     }
 
     public function time(){
-        return $this->belongsToMany(Time::class ,'user_instructor_time' , 'instructor_id' , 'user_id' );
+        return $this->belongsToMany(Time::class ,'user_instructor_time');
     }
 
     public function dates(){
